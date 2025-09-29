@@ -1,6 +1,96 @@
-Restaurant Reservation System 🍽️
-The Restaurant Reservation System is a React-based web application designed to manage seat reservations in a restaurant. It allows users to book seats, check in, and check out seamlessly while providing a real-time pie chart visualization of available vs. reserved seats.
+Sistema  de reservas para lounges  desarrollado 
+# Tecnologías Utilizadas
+Frontend
 
-Github link:-
+    React 18
 
-"https://drive.google.com/file/d/1FtvYbRdg_3Rml0u5LnMjmjEqY3y4tEAW/view?usp=sharing"
+    Vite
+
+    React Router DOM
+
+    Recharts (gráficos)
+
+    Axios (peticiones HTTP)
+
+    PWA Ready
+
+Backend
+
+    Node.js + Express.js
+
+    MongoDB + Mongoose
+
+    CORS
+
+    dotenv
+
+ # Instalación y Configuración
+ ## Prerrequisitos
+
+    Node.js 16+
+
+    MongoDB Atlas o local
+
+    Cuenta en Vercel (frontend)
+
+    Cuenta en Render (backend)
+# Instalar Dependencias
+# Instalar dependencias del frontend 
+# Configurar Variables de Entorno
+Crear archivo .env en la raíz del proyecto:
+MONGODB_URI=mongodb+srv://usuario:contraseña@cluster.mongodb.net/nombre-db
+PORT=3001
+VITE_API_BASE_URL=http://localhost:3001/api
+# Ejecutar en Desarrollo
+
+## Ejecutar frontend y backend simultáneamente
+npm run dev:full
+
+## O ejecutar por separado
+npm run dev          # Frontend (puerto 5173)
+npm run dev:server   # Backend (puerto 3001)
+# Crear mesas de ejemplo
+npm run seed:tables
+# Despliegue en Producción
+Frontend (Vercel)
+
+    Conectar repositorio a Vercel
+
+    Configurar variables de entorno en Vercel:
+
+        VITE_API_BASE_URL: https://tu-backend.onrender.com/api
+
+    Configuración de build:
+
+        Framework: Vite
+
+        Build Command: npm run build
+
+        Output Directory: dist
+Backend (Render)
+
+    Crear nuevo Web Service en Render
+
+    Configuración:
+
+        Root Directory: server
+
+        Build Command: npm install
+
+        Start Command: node index.js
+
+    Variables de entorno en Render:
+
+        MONGODB_URI: Tu cadena de conexión de MongoDB
+
+        PORT: 3001
+# Configuración de CORS
+Asegúrate de configurar CORS en server/index.js con tus URLs de producción:
+const corsOptions = {
+  origin: [
+    'https://tu-frontend.vercel.app',
+    'https://tu-backend.onrender.com',
+    'http://localhost:5173'
+  ],
+  credentials: true
+};
