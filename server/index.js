@@ -14,7 +14,6 @@ const PORT = process.env.PORT || 3001;
 // Configuración de CORS corregida
 const corsOptions = {
   origin: [
-    'https://reser-cocobov3.vercel.app/', // Tu dominio en Vercel
     'http://localhost:5173', // Para desarrollo local (Vite)
     'http://127.0.0.1:5173', // Alternativa local
     'https://localhost:5173' // HTTPS local
@@ -89,7 +88,6 @@ app.get('/api/cors-test', (req, res) => {
   res.json({
     message: 'CORS está funcionando correctamente',
     allowedOrigins: [
-      'https://reser-cocobov3.vercel.app/',
       'http://localhost:5173',
       'http://127.0.0.1:5173',
       'https://localhost:5173'
@@ -111,7 +109,6 @@ app.listen(PORT, () => {
   console.log(`🚀 Servidor ejecutándose en puerto ${PORT}`);
   console.log(`🌐 Health check disponible en: http://localhost:${PORT}/api/health`);
   console.log(`🔧 CORS configurado para:`);
-  console.log(`   - https://reser-cocobov3.vercel.app/`);
   console.log(`   - http://localhost:5173`);
   console.log(`   - http://127.0.0.1:5173`);
   console.log(`   - https://localhost:5173`);
