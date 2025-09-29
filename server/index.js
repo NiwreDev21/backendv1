@@ -39,18 +39,20 @@ app.use('/api/reservations', reservationRoutes);
 app.use('/api/tables', tableRoutes);
 app.use('/api/notifications', notificationRoutes);
 
-// Conexión a MongoDB Atlas - Configuración optimizada
+// CONEXIÓN MONGODB CORREGIDA - Sin opciones obsoletas
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/reservations', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+  // Eliminadas las opciones que causaban error:
+  // - bufferCommands: false (eliminado)
+  // - bufferMaxEntries: 0 (eliminado)
+  
+  // Opciones seguras y compatibles:
   serverSelectionTimeoutMS: 10000, // Timeout aumentado a 10 segundos
-  socketTimeoutMS: 45000,
-  bufferCommands: false,
-  bufferMaxEntries: 0
+  socketTimeoutMS: 45000
 })
 .then(() => {
   console.log('✅ Conectado a MongoDB Atlas');
   console.log('📊 Base de datos:', mongoose.connection.name);
+  console.log('🏠 Host:', mongoose.connection.host);
 })
 .catch((error) => {
   console.error('❌ Error conectando a MongoDB:', error);
@@ -88,7 +90,9 @@ app.get('/api/health', async (req, res) => {
       message: 'Servidor funcionando correctamente',
       database: {
         status: dbStatus,
-        name: dbName
+        name: dbName,
+        host: mongoose.connection.host,
+        readyState: mongoose.connection.readyState
       },
       environment: process.env.NODE_ENV || 'development',
       timestamp: new Date().toISOString(),
@@ -164,7 +168,8 @@ app.use('*', (req, res) => {
 // Iniciar servidor
 app.listen(PORT, () => {
   console.log(`🚀 Servidor ejecutándose en puerto ${PORT}`);
-  console.log(`🌐 Health check disponible en: https://backendv1-bbin.onrender.com/api/health`);
+  console.log(`🌐 Health check disponible en: http://localhost:${PORT}/api/health`);
+  console.log(`🌐 Production URL: https://backendv1-bbin.onrender.com/api/health`);
   console.log(`🔧 CORS configurado para:`);
   console.log(`   - https://frontendv1-mu.vercel.app (Producción)`);
   console.log(`   - https://backendv1-bbin.onrender.com (Backend)`);
